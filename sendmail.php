@@ -1,47 +1,52 @@
 <?php
-// Функція перевірки та виправлення кодування
+// Встановлюємо UTF-8 для внутрішніх операцій
+mb_internal_encoding("UTF-8");
+
+// Встановлюємо заголовок, щоб браузер розумів кодування
+header('Content-Type: text/html; charset=UTF-8');
+
+// Функція виправлення кодування, якщо дані прийшли не в UTF-8
 function fix_encoding($text) {
     if (!mb_check_encoding($text, 'UTF-8')) {
-        return mb_convert_encoding($text, 'UTF-8', 'Windows-1251'); // або 'ISO-8859-1'
+        $converted = mb_convert_encoding($text, 'UTF-8', 'Windows-1251');
+        if (mb_check_encoding($converted, 'UTF-8')) {
+            return $converted;
+        }
+        return mb_convert_encoding($text, 'UTF-8', 'ISO-8859-1');
     }
     return $text;
 }
 
-// Отримання та обробка даних
-$name = fix_encoding(trim($_POST['name']));
-$phone = fix_encoding(trim($_POST['phone']));
-$email = fix_encoding(trim($_POST['email'] ?? '')); // не обов'язково
-$items = fix_encoding(trim($_POST['items']));
-$address = fix_encoding(trim($_POST['address']));
+// Отримуємо дані з POST і фіксимо кодування
+$name = fix_encoding(trim($_POST['name'] ?? ''));
+$phone = fix_encoding(trim($_POST['phone'] ?? ''));
+$email = fix_encoding(trim($_POST['email'] ?? ''));
+$items = fix_encoding(trim($_POST['items'] ?? ''));
+$address = fix_encoding(trim($_POST['address'] ?? ''));
 
-// Тема листа
+// Тема та тіло листа
 $subject = "Нове замовлення з сайту";
-
-// Формування повідомлення
 $message = "Нове замовлення:\n\n";
 $message .= "Ім'я: $name\n";
 $message .= "Телефон: $phone\n";
 $message .= "Email: $email\n";
 $message .= "Адреса: $address\n";
-$message .= "Замовлення:\n$items\n";
+$message .= "Товари:\n$items\n";
 
 // Email одержувача
-$to = "smusroman@gmail.com"; // заміни на свою адресу
+$to = "smusroman@gmail.com"; // заміни на свій email
 
-// Заголовки
+// Заголовки з кодуванням UTF-8
 $headers = "Content-type: text/plain; charset=UTF-8\r\n";
 $headers .= "From: Сайт <no-reply@yourdomain.com>\r\n";
 
-// Встановити UTF-8 як внутрішнє кодування
-mb_internal_encoding("UTF-8");
-
-// Надсилання
+// Надсилання листа
 $success = mb_send_mail($to, $subject, $message, $headers);
 
-// Відповідь
+// Вивід результату
 if ($success) {
-    echo "Дякуємо! Замовлення надіслано.";
+    echo "✅ Дякуємо! Замовлення надіслано.";
 } else {
-    echo "Вибачте, сталася помилка при надсиланні.";
+    echo "❌ Вибачте, сталася помилка при надсиланні.";
 }
-?>>
+?>

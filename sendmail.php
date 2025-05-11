@@ -17,7 +17,17 @@ function fix_encoding($text) {
     return $text;
 }
 
+// Отримуємо дані з POST і фіксимо кодування
+$name = fix_encoding(trim($_POST['name'] ?? ''));
+$phone = fix_encoding(trim($_POST['phone'] ?? ''));
+$email = fix_encoding(trim($_POST['email'] ?? ''));
+$items = fix_encoding(trim($_POST['items'] ?? ''));
+$address = fix_encoding(trim($_POST['address'] ?? ''));
 
+
+
+// Email одержувача
+$to = "smusroman@gmail.com"; // заміни на свій email
 
 // Заголовки з кодуванням UTF-8
 $headers = "Content-type: text/plain; charset=UTF-8\r\n";

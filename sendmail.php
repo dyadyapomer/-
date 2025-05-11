@@ -24,14 +24,7 @@ $email = fix_encoding(trim($_POST['email'] ?? ''));
 $items = fix_encoding(trim($_POST['items'] ?? ''));
 $address = fix_encoding(trim($_POST['address'] ?? ''));
 
-// Тема та тіло листа
-$subject = "Нове замовлення з сайту";
-$message = "Нове замовлення:\n\n";
-$message .= "Ім'я: $name\n";
-$message .= "Телефон: $phone\n";
-$message .= "Email: $email\n";
-$message .= "Адреса: $address\n";
-$message .= "Товари:\n$items\n";
+
 
 // Email одержувача
 $to = "smusroman@gmail.com"; // заміни на свій email

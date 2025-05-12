@@ -1,20 +1,28 @@
 <?php
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-  $to = "smusroman@gmail.com";  // Сюди прийде лист
-  $subject = "Нове замовлення з сайту МилоМанія";
+    $to = "smusroman@gmail.com";  // Твоя пошта
+    $subject = "Нове замовлення з сайту МилоМанія";
 
-  $message = "Обрані товари: " . $_POST['items'] . "\n"
-           . "Ім'я: " . $_POST['name'] . "\n"
-           . "Телефон: " . $_POST['phone'] . "\n"
-           . "Адреса доставки: " . $_POST['address'];
+    $items = trim($_POST["items"]);
+    $name = trim($_POST["name"]);
+    $phone = trim($_POST["phone"]);
+    $address = trim($_POST["address"]);
 
-  $headers = "From: no-reply@milomania.com.ua\r\n";
-  $headers .= "Content-Type: text/plain; charset=utf-8\r\n";
+    $message = "Обрані товари: $items\n"
+             . "Я: $name\n"
+             . "$phone\n"
+             . "$address";
 
-  if (mail($to, $subject, $message, $headers)) {
-    echo "<h1>Дякуємо за замовлення!</h1>";
-  } else {
-    echo "<h1>Сталася помилка. Спробуйте ще раз.</h1>";
-  }
+    $headers = "From: no-reply@milomania.com.ua" . "\r\n" .
+               "Content-Type: text/plain; charset=utf-8";
+
+    // Надсилання листа
+    if (mail($to, $subject, $message, $headers)) {
+        echo "Дякуємо! Ваше замовлення надіслано.";
+    } else {
+        echo "Сталася помилка. Спробуйте ще раз.";
+    }
+} else {
+    echo "Доступ заборонено.";
 }
 ?>

@@ -124,17 +124,22 @@
 <div class="cartcolor">
 Оформити замовлення
 </div>
-<form action="mailto:smusroman@gmail.com" enctype="text/plain" method="post">
-<label for="items">Обрані товари</label>
-<textarea id="items" name="items" readonly="" required=""></textarea>
-<label for="name">Ім'я</label>
-<input id="name" name="name" required="" type="text"/>
-<label for="phone">Телефон</label>
-<input id="phone" name="phone" required="" type="tel"/>
-<label for="address">Адреса доставки</label>
-<textarea id="address" name="address" required=""></textarea>
-<button type="submit">Замовити</button>
+<form action="send.php" method="post">
+  <label for="items">Обрані товари</label>
+  <textarea id="items" name="items" readonly required></textarea>
+
+  <label for="name">Ім'я</label>
+  <input id="name" name="name" type="text" required>
+
+  <label for="phone">Телефон</label>
+  <input id="phone" name="phone" type="tel" required>
+
+  <label for="address">Адреса доставки</label>
+  <textarea id="address" name="address" required></textarea>
+
+  <button type="submit">Замовити</button>
 </form>
+
 </section>
 <section class="about" id="about">
 <div class="pronas">

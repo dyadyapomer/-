@@ -124,18 +124,22 @@
 <div class="cartcolor">
 Оформити замовлення
 </div>
-<form action="send.php" method="post">
+<form action="https://formsubmit.co/smusroman@gmail.com" method="POST">
+  <!-- Налаштування листа -->
+  <input type="hidden" name="_subject" value="Нове замовлення з сайту!">
+  <input type="hidden" name="_captcha" value="false">
+
   <label for="items">Обрані товари</label>
-  <textarea id="items" name="items" readonly required></textarea>
+  <textarea id="items" name="Товари" readonly required></textarea>
 
   <label for="name">Ім'я</label>
-  <input id="name" name="name" type="text" required>
+  <input id="name" name="Ім’я" type="text" required>
 
   <label for="phone">Телефон</label>
-  <input id="phone" name="phone" type="tel" required>
+  <input id="phone" name="Телефон" type="tel" required>
 
   <label for="address">Адреса доставки</label>
-  <textarea id="address" name="address" required></textarea>
+  <textarea id="address" name="Адреса" required></textarea>
 
   <button type="submit">Замовити</button>
 </form>
